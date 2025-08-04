@@ -3,6 +3,7 @@ def simulate_ev_data():
     import numpy as np
     import random
     from datetime import datetime, timedelta
+    # Generate 100 stations (10 existing + 90 new)
     stations = [
         {"station_id": 1, "station_name": "Connaught Place", "latitude": 28.6315, "longitude": 77.2167},
         {"station_id": 2, "station_name": "Saket", "latitude": 28.5222, "longitude": 77.2076},
@@ -15,6 +16,29 @@ def simulate_ev_data():
         {"station_id": 9, "station_name": "Rohini", "latitude": 28.7499, "longitude": 77.0560},
         {"station_id": 10, "station_name": "Nehru Place", "latitude": 28.5483, "longitude": 77.2513},
     ]
+    
+    # Add 90 more stations with generated names and coordinates
+    delhi_areas = ["Mayur Vihar", "Janakpuri", "Pitampura", "Punjabi Bagh", "Kalkaji", "Malviya Nagar", 
+                   "Greater Kailash", "Paschim Vihar", "Vikaspuri", "Shahdara", "Dilshad Garden", 
+                   "Krishna Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar"]
+    
+    for i in range(90):
+        station_id = i + 11
+        area = delhi_areas[i % len(delhi_areas)]
+        sector = f"Sector {np.random.randint(1, 15)}"
+        station_name = f"{area} {sector}"
+        
+        # Generate random coordinates within Delhi bounds
+        lat = np.random.uniform(28.40, 28.75)
+        lng = np.random.uniform(76.85, 77.30)
+        
+        stations.append({
+            "station_id": station_id,
+            "station_name": station_name,
+            "latitude": round(lat, 4),
+            "longitude": round(lng, 4)
+        })
+
     vehicle_types = ["car", "scooter"]
     today = datetime.now().date()
     days = 7

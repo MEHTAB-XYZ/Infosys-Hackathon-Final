@@ -9,19 +9,39 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 CORS(app)  # Enable CORS for React frontend
 
+# Function to generate station capacity
+def generate_station_capacity():
+    capacity_dict = {
+        # Existing stations with their original capacity
+        "Connaught Place": {"car": 21, "scooter": 19},
+        "Nehru Place": {"car": 20, "scooter": 18},
+        "Rajouri Garden": {"car": 19, "scooter": 17},
+        "Saket": {"car": 21, "scooter": 20},
+        "Dwarka": {"car": 18, "scooter": 16},
+        "Karol Bagh": {"car": 17, "scooter": 15},
+        "Lajpat Nagar": {"car": 21, "scooter": 20},
+        "Vasant Kunj": {"car": 16, "scooter": 15},
+        "Preet Vihar": {"car": 15, "scooter": 15},
+        "Rohini": {"car": 15, "scooter": 15},
+    }
+    
+    # Generate capacity for new stations
+    delhi_areas = ["Mayur Vihar", "Janakpuri", "Pitampura", "Punjabi Bagh", "Kalkaji", "Malviya Nagar",
+                  "Greater Kailash", "Paschim Vihar", "Vikaspuri", "Shahdara", "Dilshad Garden",
+                  "Krishna Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar"]
+    
+    for area in delhi_areas:
+        for sector in range(1, 15):
+            station_name = f"{area} Sector {sector}"
+            # Generate random but realistic capacity values
+            car_capacity = np.random.randint(15, 25)
+            scooter_capacity = np.random.randint(12, 22)
+            capacity_dict[station_name] = {"car": car_capacity, "scooter": scooter_capacity}
+    
+    return capacity_dict
+
 # Station capacity dictionary
-station_capacity = {
-    "Connaught Place": {"car": 21, "scooter": 19},
-    "Nehru Place": {"car": 20, "scooter": 18},
-    "Rajouri Garden": {"car": 19, "scooter": 17},
-    "Saket": {"car": 21, "scooter": 20},
-    "Dwarka": {"car": 18, "scooter": 16},
-    "Karol Bagh": {"car": 17, "scooter": 15},
-    "Lajpat Nagar": {"car": 21, "scooter": 20},
-    "Vasant Kunj": {"car": 16, "scooter": 15},
-    "Preet Vihar": {"car": 15, "scooter": 15},
-    "Rohini": {"car": 15, "scooter": 15},
-}
+station_capacity = generate_station_capacity()
 
 @app.route('/api/ev-data')
 def get_ev_data():

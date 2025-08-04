@@ -114,62 +114,30 @@ const EVDashboard: React.FC = () => {
   };
 
   return (
-    <Box sx={{ 
-      flexGrow: 1, 
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      backgroundAttachment: 'fixed'
-    }}>
-      <AppBar 
-        position="static" 
-        elevation={0}
-        sx={{
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
-        }}
-      >
-        <Toolbar>
-          <Box sx={{
-            background: 'linear-gradient(45deg, #667eea, #764ba2)',
-            borderRadius: '50%',
-            p: 1,
-            mr: 2,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
+    <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: 'background.default' }}>
+      <AppBar position="static" elevation={0}>
+        <Toolbar sx={{ px: { xs: 2, md: 4 } }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            width: 48,
+            height: 48,
+            borderRadius: '12px',
+            bgcolor: 'rgba(255,255,255,0.2)',
+            mr: 2
           }}>
-            <ElectricCarIcon sx={{ color: 'white' }} />
+            <ElectricCarIcon />
           </Box>
-          <Typography 
-            variant="h6" 
-            component="div" 
-            sx={{ 
-              flexGrow: 1,
-              background: 'linear-gradient(45deg, #667eea, #764ba2)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontWeight: 700
-            }}
-          >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 600 }}>
             EV Charging Demand Forecast Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="xl" sx={{ mt: 3, mb: 4 }}>
+      <Container maxWidth="xl" sx={{ mt: 4, mb: 6, px: { xs: 2, md: 4 } }}>
         {error && (
-          <Alert 
-            severity="error" 
-            sx={{ 
-              mb: 2,
-              borderRadius: 2,
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              backdropFilter: 'blur(10px)',
-              background: 'rgba(255, 255, 255, 0.9)'
-            }}
-          >
+          <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
             {error}
           </Alert>
         )}
@@ -186,22 +154,17 @@ const EVDashboard: React.FC = () => {
         />
 
         {loading && (
-          <Box sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-            <LinearProgress 
-              sx={{ 
-                height: 6,
-                background: 'rgba(255, 255, 255, 0.3)',
-                '& .MuiLinearProgress-bar': {
-                  background: 'linear-gradient(45deg, #667eea, #764ba2)'
-                }
-              }} 
-            />
+          <Box sx={{ mb: 3 }}>
+            <LinearProgress />
+            <Typography variant="body2" sx={{ mt: 1, textAlign: 'center', color: 'text.secondary' }}>
+              Loading forecast data...
+            </Typography>
           </Box>
         )}
 
         {/* Main Content Layout */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          {/* Top Row - Forecast Chart and Top Stations */}
+          {/* Top Row - Chart and Top Stations */}
           <Box sx={{ 
             display: 'flex', 
             flexDirection: { xs: 'column', lg: 'row' }, 
@@ -209,35 +172,31 @@ const EVDashboard: React.FC = () => {
           }}>
             {/* Main Forecast Chart */}
             <Box sx={{ flex: { lg: 2 } }}>
-              <Card sx={{
-                borderRadius: 3,
-                boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.15)'
-                }
-              }}>
+              <Card sx={{ height: '100%' }}>
                 <CardContent sx={{ p: 3 }}>
-                  <Typography 
-                    variant="h6" 
-                    gutterBottom
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      background: 'linear-gradient(45deg, #667eea, #764ba2)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      fontWeight: 600
-                    }}
-                  >
-                    <TimelineIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
-                    Forecasted Demand for {selectedStation} ({selectedVehicleType}) on {selectedDate}
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      width: 40,
+                      height: 40,
+                      borderRadius: '10px',
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                      mr: 2
+                    }}>
+                      <TimelineIcon />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        Demand Forecast
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {selectedStation} • {selectedVehicleType} • {format(new Date(selectedDate), 'MMM dd, yyyy')}
+                      </Typography>
+                    </Box>
+                  </Box>
                   {forecastData && (
                     <ForecastChart 
                       data={forecastData.forecast}
@@ -274,49 +233,43 @@ const EVDashboard: React.FC = () => {
             </Box>
           </Box>
 
-          {/* Station Map */}
-          <Card sx={{
-            borderRadius: 3,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-            background: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            '&:hover': {
-              transform: 'translateY(-4px)',
-              boxShadow: '0 12px 40px rgba(0,0,0,0.15)'
-            }
-          }}>
-            <CardContent sx={{ p: 3 }}>
-              <Typography 
-                variant="h6" 
-                gutterBottom
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: 'linear-gradient(45deg, #667eea, #764ba2)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontWeight: 600
-                }}
-              >
-                <LocationIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
-                Station Map
-              </Typography>
-              <StationMap 
-                stations={stations}
-                selectedStation={selectedStation}
-                vehicleType={selectedVehicleType}
-              />
-            </CardContent>
-          </Card>
+          {/* Bottom Row - Map and Simulator */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {/* Station Map */}
+            <Card>
+              <CardContent sx={{ p: 3 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    width: 40,
+                    height: 40,
+                    borderRadius: '10px',
+                    bgcolor: 'info.main',
+                    color: 'white',
+                    mr: 2
+                  }}>
+                    <LocationIcon />
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Station Network Map
+                  </Typography>
+                </Box>
+                <StationMap 
+                  stations={stations}
+                  selectedStation={selectedStation}
+                  vehicleType={selectedVehicleType}
+                />
+              </CardContent>
+            </Card>
 
-          {/* What-If Simulator */}
-          <WhatIfSimulator 
-            stations={stations}
-            selectedDate={selectedDate}
-          />
+            {/* What-If Simulator */}
+            <WhatIfSimulator 
+              stations={stations}
+              selectedDate={selectedDate}
+            />
+          </Box>
         </Box>
       </Container>
     </Box>
