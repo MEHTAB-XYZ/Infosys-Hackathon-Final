@@ -1,6 +1,4 @@
-# EV Charging Demand Forecast Dashboard - React Version
-
-This is a React-based conversion of your original Streamlit EV charging dashboard with all the same functionality.
+# EV Charging Demand Forecast Dashboard
 
 ## 🚀 Features
 
@@ -127,13 +125,5 @@ Deploy the Flask app to your preferred cloud service (AWS, Azure, Heroku, etc.)
 3. Prophet model creates forecasts
 4. Results are formatted and sent back to frontend
 5. React components render the data with interactive visualizations
-
-## 🆚 Differences from Streamlit Version
-
-- **Better Performance**: React provides smoother interactions
-- **Modern UI**: Material-UI design system
-- **Mobile Responsive**: Works great on all devices
-- **Extensible**: Easy to add new features and components
-- **Production Ready**: Can be easily deployed to cloud services
 
 This React version maintains all the functionality of your original Streamlit app while providing a more professional and scalable user interface.
