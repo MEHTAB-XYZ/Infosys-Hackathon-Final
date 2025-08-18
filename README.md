@@ -8,9 +8,7 @@ This is a React-based conversion of your original Streamlit EV charging dashboar
 - **Overload Analysis**: Identifies stations requiring capacity expansion
 - **Solar Integration**: Finds stations suitable for solar-powered charging
 - **What-If Simulator**: Test different capacity and demand scenarios
-- **Interactive Maps**: Visual representation of station locations
-- **Beautiful UI**: Modern Material-UI design with responsive layout
-
+- 
 ## 📋 Prerequisites
 
 - Node.js (v14 or higher)
